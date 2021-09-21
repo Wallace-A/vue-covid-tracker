@@ -3,6 +3,8 @@
     <div class="container m-auto">
       <main v-if="!loading">
         <DataTitle :text="title" :dataDate="dataDate" />
+
+        <DataBoxes :stats="stats" />
       </main>
 
       <main class="flex flex-col align-center justify-center text-center" v-else>
@@ -15,7 +17,7 @@
 <script>
 import Header from "./components/Header"
 import DataTitle from "./components/DataTitle"
-
+import DataBoxes from "./components/DataBoxes"
 export default {
   name: 'App',
   data() {
@@ -31,7 +33,8 @@ export default {
   },
   components: {
     Header,
-    DataTitle
+    DataTitle,
+    DataBoxes
   },
   methods: {
     async fetchCovidData() {
