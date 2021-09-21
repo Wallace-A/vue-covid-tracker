@@ -5,6 +5,8 @@
         <DataTitle :text="title" :dataDate="dataDate" />
 
         <DataBoxes :stats="stats" />
+        <!-- @get-country is called in CountrySelect and passes a country to getCountryData function and calls it -->
+        <CountrySelect @get-country="getCountryData" :countries="countries"/>
       </main>
 
       <main class="flex flex-col align-center justify-center text-center" v-else>
@@ -18,6 +20,8 @@
 import Header from "./components/Header"
 import DataTitle from "./components/DataTitle"
 import DataBoxes from "./components/DataBoxes"
+import CountrySelect from "./components/CountrySelect"
+
 export default {
   name: 'App',
   data() {
@@ -34,13 +38,19 @@ export default {
   components: {
     Header,
     DataTitle,
-    DataBoxes
+    DataBoxes,
+    CountrySelect
   },
   methods: {
     async fetchCovidData() {
       const response = await fetch("https://api.covid19api.com/summary")
       const data = await response.json()
       return data
+    },
+    //recieves country from CountrySelect
+    getCountryData(country){
+      this.stats = country
+      this.title = country.Country
     }
   },
   //set as async because it's a promise
